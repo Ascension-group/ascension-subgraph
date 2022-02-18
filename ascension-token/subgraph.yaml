@@ -1,0 +1,60 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  #Ascension Token
+  - kind: ethereum
+    name: AscensionToken
+    network: arbitrum-one
+    source:
+      address: "0x9e724698051DA34994F281bD81C3E7372d1960AE"
+      abi: AscensionToken
+      startBlock: 3446248
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - DelegateChanged
+        - DelegateVotesChanged
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - Snapshot
+        - Transfer
+      abis:
+        - name: AscensionToken
+          file: ./abis/AscensionToken.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/token.ts
+  #Ascension Staked Token
+  - kind: ethereum
+    name: AscensionStakedToken
+    network: arbitrum-one
+    source:
+      address: "0x40EaFEc3C261F7e706289d3b3aFEF812A6CA10cD"
+      abi: AscensionToken
+      startBlock: 3694805
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - DelegateChanged
+        - DelegateVotesChanged
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - Snapshot
+        - Transfer
+      abis:
+        - name: AscensionToken
+          file: ./abis/AscensionToken.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/staked.ts
