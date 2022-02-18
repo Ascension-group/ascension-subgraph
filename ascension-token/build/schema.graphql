@@ -1,5 +1,6 @@
 type User @entity {
   id: ID!
+  totalBalance: BigDecimal!
   balance: BigDecimal!
   votes: BigDecimal!
   stakedBalance: BigDecimal!

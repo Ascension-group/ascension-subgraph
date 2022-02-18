@@ -16,6 +16,7 @@ export class User extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("totalBalance", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("balance", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("votes", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("stakedBalance", Value.fromBigDecimal(BigDecimal.zero()));
@@ -46,6 +47,15 @@ export class User extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get totalBalance(): BigDecimal {
+    let value = this.get("totalBalance");
+    return value!.toBigDecimal();
+  }
+
+  set totalBalance(value: BigDecimal) {
+    this.set("totalBalance", Value.fromBigDecimal(value));
   }
 
   get balance(): BigDecimal {

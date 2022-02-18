@@ -16,6 +16,7 @@ export function handleTransfer(event: Transfer): void {
   fromUser.balance = toDecimal(fromTokenBalance)
   let fromTokenVotes = token.getVotes(fromAddress)
   fromUser.votes = toDecimal(fromTokenVotes)
+  fromUser.totalBalance = fromUser.balance + fromUser.stakedBalance
   fromUser.save()
 
   //handle to
@@ -28,5 +29,6 @@ export function handleTransfer(event: Transfer): void {
   toUser.balance = toDecimal(toTokenBalance)
   let toTokenVotes = token.getVotes(toAddress)
   toUser.votes = toDecimal(toTokenVotes)
+  toUser.totalBalance = toUser.balance + toUser.stakedBalance
   toUser.save()
 }
