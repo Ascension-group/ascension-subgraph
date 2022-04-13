@@ -94,3 +94,47 @@ export class User extends Entity {
     this.set("stakedVotes", Value.fromBigDecimal(value));
   }
 }
+
+export class StakingMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("totalStaked", Value.fromBigDecimal(BigDecimal.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save StakingMetric entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save StakingMetric entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("StakingMetric", id.toString(), this);
+    }
+  }
+
+  static load(id: string): StakingMetric | null {
+    return changetype<StakingMetric | null>(store.get("StakingMetric", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalStaked(): BigDecimal {
+    let value = this.get("totalStaked");
+    return value!.toBigDecimal();
+  }
+
+  set totalStaked(value: BigDecimal) {
+    this.set("totalStaked", Value.fromBigDecimal(value));
+  }
+}

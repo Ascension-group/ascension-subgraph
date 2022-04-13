@@ -210,7 +210,7 @@ export class Transfer__Params {
   }
 }
 
-export class AscensionToken__checkpointsResultValue0Struct extends ethereum.Tuple {
+export class AscensionStakedToken__checkpointsResultValue0Struct extends ethereum.Tuple {
   get fromBlock(): BigInt {
     return this[0].toBigInt();
   }
@@ -220,9 +220,9 @@ export class AscensionToken__checkpointsResultValue0Struct extends ethereum.Tupl
   }
 }
 
-export class AscensionToken extends ethereum.SmartContract {
-  static bind(address: Address): AscensionToken {
-    return new AscensionToken("AscensionToken", address);
+export class AscensionStakedToken extends ethereum.SmartContract {
+  static bind(address: Address): AscensionStakedToken {
+    return new AscensionStakedToken("AscensionStakedToken", address);
   }
 
   DEFAULT_ADMIN_ROLE(): Bytes {
@@ -418,7 +418,7 @@ export class AscensionToken extends ethereum.SmartContract {
   checkpoints(
     account: Address,
     pos: BigInt
-  ): AscensionToken__checkpointsResultValue0Struct {
+  ): AscensionStakedToken__checkpointsResultValue0Struct {
     let result = super.call(
       "checkpoints",
       "checkpoints(address,uint32):((uint32,uint224))",
@@ -428,7 +428,7 @@ export class AscensionToken extends ethereum.SmartContract {
       ]
     );
 
-    return changetype<AscensionToken__checkpointsResultValue0Struct>(
+    return changetype<AscensionStakedToken__checkpointsResultValue0Struct>(
       result[0].toTuple()
     );
   }
@@ -436,7 +436,7 @@ export class AscensionToken extends ethereum.SmartContract {
   try_checkpoints(
     account: Address,
     pos: BigInt
-  ): ethereum.CallResult<AscensionToken__checkpointsResultValue0Struct> {
+  ): ethereum.CallResult<AscensionStakedToken__checkpointsResultValue0Struct> {
     let result = super.tryCall(
       "checkpoints",
       "checkpoints(address,uint32):((uint32,uint224))",
@@ -450,7 +450,7 @@ export class AscensionToken extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      changetype<AscensionToken__checkpointsResultValue0Struct>(
+      changetype<AscensionStakedToken__checkpointsResultValue0Struct>(
         value[0].toTuple()
       )
     );
@@ -1011,36 +1011,6 @@ export class BurnCall__Inputs {
     this._call = call;
   }
 
-  get amount(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class BurnCall__Outputs {
-  _call: BurnCall;
-
-  constructor(call: BurnCall) {
-    this._call = call;
-  }
-}
-
-export class BurnFromCall extends ethereum.Call {
-  get inputs(): BurnFromCall__Inputs {
-    return new BurnFromCall__Inputs(this);
-  }
-
-  get outputs(): BurnFromCall__Outputs {
-    return new BurnFromCall__Outputs(this);
-  }
-}
-
-export class BurnFromCall__Inputs {
-  _call: BurnFromCall;
-
-  constructor(call: BurnFromCall) {
-    this._call = call;
-  }
-
   get account(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
@@ -1050,10 +1020,10 @@ export class BurnFromCall__Inputs {
   }
 }
 
-export class BurnFromCall__Outputs {
-  _call: BurnFromCall;
+export class BurnCall__Outputs {
+  _call: BurnCall;
 
-  constructor(call: BurnFromCall) {
+  constructor(call: BurnCall) {
     this._call = call;
   }
 }

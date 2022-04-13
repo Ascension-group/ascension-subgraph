@@ -6,3 +6,8 @@ type User @entity {
   stakedBalance: BigDecimal!
   stakedVotes: BigDecimal!
 }
+
+type StakingMetric @entity {
+  id: ID!
+  totalStaked: BigDecimal!
+}

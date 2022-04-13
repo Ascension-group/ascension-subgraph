@@ -34,7 +34,7 @@ dataSources:
     network: arbitrum-one
     source:
       address: "0x40EaFEc3C261F7e706289d3b3aFEF812A6CA10cD"
-      abi: AscensionToken
+      abi: AscensionStakedToken
       startBlock: 3694805
     mapping:
       kind: ethereum/events
@@ -50,8 +50,8 @@ dataSources:
         - Snapshot
         - Transfer
       abis:
-        - name: AscensionToken
-          file: AscensionStakedToken/abis/AscensionToken.json
+        - name: AscensionStakedToken
+          file: AscensionStakedToken/abis/AscensionStakedToken.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer

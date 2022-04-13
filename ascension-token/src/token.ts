@@ -1,10 +1,10 @@
-import { Address } from "@graphprotocol/graph-ts"
-import { AscensionToken, Transfer } from "../generated/AscensionToken/AscensionToken"
-import { User } from "../generated/schema"
-import { toDecimal } from "./utils/Decimals"
+import { Address } from '@graphprotocol/graph-ts'
+import { AscensionToken, Transfer } from '../generated/AscensionToken/AscensionToken'
+import { User } from '../generated/schema'
+import { toDecimal } from './utils/Decimals'
 
 export function handleTransfer(event: Transfer): void {
-  let token = AscensionToken.bind(Address.fromString("0x9e724698051DA34994F281bD81C3E7372d1960AE"))
+  let token = AscensionToken.bind(Address.fromString('0x9e724698051DA34994F281bD81C3E7372d1960AE'))
 
   //handle from
   let fromAddress = event.params.from
