@@ -15,12 +15,6 @@ export class User extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("totalBalance", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("balance", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("votes", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("stakedBalance", Value.fromBigDecimal(BigDecimal.zero()));
-    this.set("stakedVotes", Value.fromBigDecimal(BigDecimal.zero()));
   }
 
   save(): void {
@@ -29,8 +23,7 @@ export class User extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save User entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type User must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("User", id.toString(), this);
     }
@@ -95,29 +88,26 @@ export class User extends Entity {
   }
 }
 
-export class StakingMetric extends Entity {
+export class DailySnapshot extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("totalStaked", Value.fromBigDecimal(BigDecimal.zero()));
   }
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save StakingMetric entity without an ID");
+    assert(id != null, "Cannot save DailySnapshot entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save StakingMetric entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type DailySnapshot must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("StakingMetric", id.toString(), this);
+      store.set("DailySnapshot", id.toString(), this);
     }
   }
 
-  static load(id: string): StakingMetric | null {
-    return changetype<StakingMetric | null>(store.get("StakingMetric", id));
+  static load(id: string): DailySnapshot | null {
+    return changetype<DailySnapshot | null>(store.get("DailySnapshot", id));
   }
 
   get id(): string {
@@ -129,12 +119,21 @@ export class StakingMetric extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get totalStaked(): BigDecimal {
-    let value = this.get("totalStaked");
+  get date(): BigInt {
+    let value = this.get("date");
+    return value!.toBigInt();
+  }
+
+  set date(value: BigInt) {
+    this.set("date", Value.fromBigInt(value));
+  }
+
+  get totalAssets(): BigDecimal {
+    let value = this.get("totalAssets");
     return value!.toBigDecimal();
   }
 
-  set totalStaked(value: BigDecimal) {
-    this.set("totalStaked", Value.fromBigDecimal(value));
+  set totalAssets(value: BigDecimal) {
+    this.set("totalAssets", Value.fromBigDecimal(value));
   }
 }
