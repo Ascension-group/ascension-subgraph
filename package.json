@@ -1,0 +1,12 @@
+{
+  "name": "ascension-subgraph",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ lumen-limitless/ascension-subgraph"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "0.29.3"
+  }
+}

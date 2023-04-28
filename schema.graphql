@@ -1,0 +1,12 @@
+type User @entity {
+  id: ID!
+  balance: BigDecimal!
+  stakedBalance: BigDecimal!
+  totalBalance: BigDecimal!
+}
+
+type StakingSnapshot @entity {
+  id: ID!
+  totalSupply: BigDecimal!
+  totalAssets: BigDecimal!
+}
